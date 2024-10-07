@@ -48,17 +48,9 @@ stonecutter.const("fabric", loader.isFabric)
 stonecutter.const("neoforge", loader.isNeoforge)
 
 loom {
-	mods {
-		create(mod.id) {
-			sourceSet(sourceSets["main"])
-		}
-	}
-
-	if (isForge) {
-		forge.mixinConfigs("${mod.id}.mixins.json")
-	}
-
 	silentMojangMappingsLicense()
+
+	runConfigs.remove(runConfigs["server"])
 
 	runConfigs.all {
 		ideConfigGenerated(stonecutter.current.isActive)
@@ -77,6 +69,8 @@ repositories {
 
 dependencies {
 	minecraft("com.mojang:minecraft:${mc.version}")
+
+	@Suppress("UnstableApiUsage")
 	mappings(loom.layered {
 		// Mojmap mappings
 		officialMojangMappings()
@@ -85,7 +79,6 @@ dependencies {
 		optionalProp("deps.parchment_version") {
 			parchment("org.parchmentmc.data:parchment-${property("mod.mc_version")}:$it@zip")
 		}
-
 	})
 
 	if (loader.isFabric) {
@@ -170,6 +163,7 @@ if (stonecutter.current.isActive) {
 	}
 }
 
+@Suppress("TYPE_MISMATCH", "UNRESOLVED_REFERENCE")
 fun <T> optionalProp(property: String, block: (String) -> T?): T? =
 	findProperty(property)?.toString()?.takeUnless { it.isBlank() }?.let(block)
 

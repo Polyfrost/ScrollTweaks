@@ -5,13 +5,14 @@ import dev.microcontrollers.scrolltweaks.config.ScrollTweaksConfig;
 import net.fabricmc.api.ModInitializer;
 //?}
 //? if neoforge {
-/*import net.neoforged.fml.ModContainer;
+/*import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 *///?}
 
 //? if neoforge
-/*@Mod("scrolltweaks")*/
+/*@Mod(value = "scrolltweaks", dist = Dist.CLIENT)*/
 public class ScrollTweaks /*? if fabric {*/ implements ModInitializer /*?}*/ {
 	//? if fabric {
 	@Override
@@ -21,8 +22,9 @@ public class ScrollTweaks /*? if fabric {*/ implements ModInitializer /*?}*/ {
 	//?}
 
 	//? if neoforge {
-    /*public ScrollTweaks(ModContainer container) {
-        container.registerExtensionPoint(IConfigScreenFactory.class, (modContainer, screen) -> ScrollTweaksConfig.configScreen(screen));
+    /*public ScrollTweaks() {
+        ScrollTweaksConfig.CONFIG.load();
+        ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> (client, parent) -> ScrollTweaksConfig.configScreen(parent));
     }
 	*///?}
 }
