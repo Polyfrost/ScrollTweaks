@@ -15,7 +15,7 @@ import net.minecraft.network.chat.Component;
 public class ScrollTweaksConfig {
     public static final ConfigClassHandler<ScrollTweaksConfig> CONFIG = ConfigClassHandler.createBuilder(ScrollTweaksConfig.class)
             .serializer(config -> GsonConfigSerializerBuilder.create(config)
-                    .setPath(YACLPlatform.getConfigDir().resolve("${id}.json"))
+                    .setPath(YACLPlatform.getConfigDir().resolve("scrolltweaks.json"))
                     .build())
             .build();
 
